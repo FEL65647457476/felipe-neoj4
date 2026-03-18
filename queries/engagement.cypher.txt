@@ -1,0 +1,5 @@
+Engajamentos;
+
+MATCH (p:Post)<-[r]-(u:Usuario)
+RETURN p.conteudo, COUNT(r) AS engajamento
+ORDER BY engajamento DESC

@@ -1,0 +1,17 @@
+Recomendação de seguidores;
+
+MATCH (u:Usuario {nome:"Felipe"})-[:SEGUE]->(amigo)-[:SEGUE]->(sugestao)
+WHERE NOT (u)-[:SEGUE]->(sugestao) AND u <> sugestao
+RETURN sugestao.nome AS Recomendado
+
+Conteúdo popular por tópico;
+
+MATCH (p:Post)-[:SOBRE]->(t:Topico)
+MATCH (p)<-[r]-()
+RETURN t.nome, p.conteudo, COUNT(r) AS popularidade
+ORDER BY popularidade DESC
+
+Usuários Conectados;
+
+MATCH (u1:Usuario)-[:SEGUE]-(u2:Usuario)
+RETURN u1.nome, u2.nome
