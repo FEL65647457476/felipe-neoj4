@@ -1,0 +1,71 @@
+Criando os Nós
+
+// Usuários
+CREATE (u1:User {name: "Felipe"})
+CREATE (u2:User {name: "Ana"})
+
+// Filmes
+CREATE (m1:Movie {title: "Inception", year: 2010})
+CREATE (m2:Movie {title: "The Matrix", year: 1999})
+
+// Séries
+CREATE (s1:Series {title: "Breaking Bad", year: 2008})
+
+// Gêneros
+CREATE (g1:Genre {name: "Sci-Fi"})
+CREATE (g2:Genre {name: "Drama"})
+
+// Atores
+CREATE (a1:Actor {name: "Leonardo DiCaprio"})
+CREATE (a2:Actor {name: "Keanu Reeves"})
+CREATE (a3:Actor {name: "Bryan Cranston"})
+
+// Diretores
+CREATE (d1:Director {name: "Christopher Nolan"})
+CREATE (d2:Director {name: "Lana Wachowski"})
+
+// WATCHED com rating
+MATCH (u:User {name: "Felipe"}), (m:Movie {title: "Inception"})
+CREATE (u)-[:WATCHED {rating: 5}]->(m)
+
+MATCH (u:User {name: "Ana"}), (m:Movie {title: "The Matrix"})
+CREATE (u)-[:WATCHED {rating: 4}]->(m)
+
+MATCH (u:User {name: "Felipe"}), (s:Series {title: "Breaking Bad"})
+CREATE (u)-[:WATCHED {rating: 5}]->(s)
+
+Criando Relacionamentos
+
+// ACTED_IN
+MATCH (a:Actor {name: "Leonardo DiCaprio"}), (m:Movie {title: "Inception"})
+CREATE (a)-[:ACTED_IN]->(m)
+
+MATCH (a:Actor {name: "Keanu Reeves"}), (m:Movie {title: "The Matrix"})
+CREATE (a)-[:ACTED_IN]->(m)
+
+MATCH (a:Actor {name: "Bryan Cranston"}), (s:Series {title: "Breaking Bad"})
+CREATE (a)-[:ACTED_IN]->(s)
+
+
+// DIRECTED
+MATCH (d:Director {name: "Christopher Nolan"}), (m:Movie {title: "Inception"})
+CREATE (d)-[:DIRECTED]->(m)
+
+MATCH (d:Director {name: "Lana Wachowski"}), (m:Movie {title: "The Matrix"})
+CREATE (d)-[:DIRECTED]->(m)
+
+
+// IN_GENRE
+MATCH (m:Movie {title: "Inception"}), (g:Genre {name: "Sci-Fi"})
+CREATE (m)-[:IN_GENRE]->(g)
+
+MATCH (m:Movie {title: "The Matrix"}), (g:Genre {name: "Sci-Fi"})
+CREATE (m)-[:IN_GENRE]->(g)
+
+MATCH (s:Series {title: "Breaking Bad"}), (g:Genre {name: "Drama"})
+CREATE (s)-[:IN_GENRE]->(g)
+
+Consulta query
+
+MATCH (n)-[r]->(m)
+RETURN n, r, m
